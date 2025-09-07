@@ -1,0 +1,116 @@
+{
+  "name": "Sacred Scrolls - Bible PWA",
+  "short_name": "Sacred Scrolls",
+  "description": "Your Digital Bible Companion - Read, study, and explore God's Word with highlighting, notes, and bookmarks",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["religion", "books", "education"],
+  "screenshots": [
+    {
+      "src": "/screenshots/bible-reader.png",
+      "sizes": "1200x675",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Bible Reader with highlighting and notes"
+    },
+    {
+      "src": "/screenshots/search.png", 
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Search Bible verses"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png", 
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bible Reader",
+      "description": "Continue reading the Bible",
+      "url": "/bible",
+      "icons": [
+        {
+          "src": "/shortcuts/bible.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "description": "Search Bible verses",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/shortcuts/search.png",
+          "sizes": "96x96", 
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "My Notes",
+      "description": "View your notes and highlights",
+      "url": "/notes",
+      "icons": [
+        {
+          "src": "/shortcuts/notes.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "description": "View saved verses",
+      "url": "/bookmarks",
+      "icons": [
+        {
+          "src": "/shortcuts/bookmarks.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple"
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

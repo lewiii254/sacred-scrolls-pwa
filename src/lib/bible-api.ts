@@ -1,5 +1,5 @@
 // Bible API integration using API.Bible
-const API_KEY = 'a0ae93eb5fd71857b24c1506dcd63112';
+const API_KEY = import.meta.env.VITE_BIBLE_API_KEY || 'a0ae93eb5fd71857b24c1506dcd63112';
 const BASE_URL = 'https://api.scripture.api.bible/v1';
 
 export interface BibleVerse {

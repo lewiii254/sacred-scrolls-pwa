@@ -8,6 +8,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { BibleStudyProvider } from "./contexts/BibleStudyContext";
 import { AudioProvider } from "./contexts/AudioContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
+import { ServiceWorkerUpdater } from "./components/ServiceWorkerUpdater";
+import { OfflineIndicator } from "./components/OfflineIndicator";
 import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
 import BibleReader from "./pages/BibleReader";
@@ -30,6 +32,8 @@ const App = () => (
           <BibleStudyProvider>
             <AudioProvider>
               <TooltipProvider>
+              <ServiceWorkerUpdater />
+              <OfflineIndicator />
               <Toaster />
               <Sonner />
               <BrowserRouter>

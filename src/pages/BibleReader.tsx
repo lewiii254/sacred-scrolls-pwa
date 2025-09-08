@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
 import { VerseComponent } from '@/components/VerseComponent';
+import { AudioPlayer } from '@/components/AudioPlayer';
 import { BibleChapter, BibleBook, BIBLE_BOOKS, fetchBibleChapter } from '@/lib/bible-api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ChevronLeft, ChevronRight, Book, Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Book, Loader2, Headphones } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function BibleReader() {
@@ -17,6 +18,8 @@ export default function BibleReader() {
   const [currentChapter, setCurrentChapter] = useState<number>(1);
   const [chapterData, setChapterData] = useState<BibleChapter | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showAudioPlayer, setShowAudioPlayer] = useState(false);
+  const [currentVerseIndex, setCurrentVerseIndex] = useState(0);
 
   // Initialize book and chapter
   useEffect(() => {
@@ -125,6 +128,16 @@ export default function BibleReader() {
               </CardTitle>
               
               <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowAudioPlayer(!showAudioPlayer)}
+                  className="flex items-center space-x-2"
+                >
+                  <Headphones className="h-4 w-4" />
+                  <span>{showAudioPlayer ? 'Hide' : 'Show'} Audio</span>
+                </Button>
+                
                 <Button
                   variant="outline"
                   size="sm"
@@ -267,6 +280,15 @@ export default function BibleReader() {
           </Button>
         </div>
       </div>
+
+      {/* Audio Player */}
+      {showAudioPlayer && chapterData && (
+        <AudioPlayer
+          verses={chapterData.verses}
+          currentVerseIndex={currentVerseIndex}
+          onVerseChange={setCurrentVerseIndex}
+        />
+      )}
     </Layout>
   );
 }

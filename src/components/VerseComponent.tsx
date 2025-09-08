@@ -4,6 +4,7 @@ import { useBibleStudy } from '@/contexts/BibleStudyContext';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { ShareVerse } from '@/components/ShareVerse';
 import { 
   Dialog, 
   DialogContent, 
@@ -197,6 +198,8 @@ export function VerseComponent({ verse }: VerseComponentProps) {
           >
             {bookmarked ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
           </Button>
+
+          <ShareVerse verse={verse} />
         </div>
       </div>
 

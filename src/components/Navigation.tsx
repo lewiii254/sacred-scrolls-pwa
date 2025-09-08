@@ -12,7 +12,9 @@ import {
   User, 
   Sun, 
   Moon, 
-  LogOut 
+  LogOut,
+  Calendar,
+  Users
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -102,6 +104,28 @@ export function Navigation() {
             >
               <Heart className="h-4 w-4" />
               <span className="text-sm">Devotionals</span>
+            </Button>
+          </Link>
+
+          <Link to="/reading-plans">
+            <Button 
+              variant={isActive('/reading-plans') ? "default" : "ghost"} 
+              size="sm"
+              className="flex items-center space-x-2 w-full justify-start"
+            >
+              <Calendar className="h-4 w-4" />
+              <span className="text-sm">Reading Plans</span>
+            </Button>
+          </Link>
+
+          <Link to="/community">
+            <Button 
+              variant={isActive('/community') ? "default" : "ghost"} 
+              size="sm"
+              className="flex items-center space-x-2 w-full justify-start"
+            >
+              <Users className="h-4 w-4" />
+              <span className="text-sm">Community</span>
             </Button>
           </Link>
 

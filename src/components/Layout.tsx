@@ -17,7 +17,7 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <main className="pb-20 md:pb-0 md:ml-64">
+      <main className="pb-24 md:pb-4 md:ml-64 pt-4 md:pt-0">
         {children}
       </main>
       <PWAInstallPrompt />

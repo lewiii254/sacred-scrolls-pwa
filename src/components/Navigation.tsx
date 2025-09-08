@@ -14,14 +14,27 @@ import {
   Moon, 
   LogOut,
   Calendar,
-  Users
+  Users,
+  Menu,
+  X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { useState } from "react";
 
 export function Navigation() {
   const { user, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
   const location = useLocation();
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
 
   if (!user) return null;
 
@@ -82,16 +95,141 @@ export function Navigation() {
             </Button>
           </Link>
 
-          <Link to="/bookmarks">
-            <Button 
-              variant={isActive('/bookmarks') ? "default" : "ghost"} 
-              size="sm"
-              className="flex flex-col md:flex-row md:w-full md:justify-start items-center space-y-1 md:space-y-0 md:space-x-2"
-            >
-              <BookMarked className="h-4 w-4" />
-              <span className="text-xs md:text-sm">Saved</span>
-            </Button>
-          </Link>
+          {/* Mobile: More menu button; Desktop: Bookmarks */}
+          <div className="md:hidden">
+            <Drawer open={isMoreMenuOpen} onOpenChange={setIsMoreMenuOpen}>
+              <DrawerTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="flex flex-col items-center space-y-1"
+                >
+                  <Menu className="h-4 w-4" />
+                  <span className="text-xs">More</span>
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader className="text-left">
+                  <DrawerTitle className="flex items-center justify-between">
+                    <span>More Options</span>
+                    <DrawerClose asChild>
+                      <Button variant="ghost" size="sm">
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </DrawerClose>
+                  </DrawerTitle>
+                  <DrawerDescription>
+                    Access additional features and settings
+                  </DrawerDescription>
+                </DrawerHeader>
+                <div className="p-4 space-y-3">
+                  {/* Bookmarks */}
+                  <Link to="/bookmarks" onClick={() => setIsMoreMenuOpen(false)}>
+                    <Button 
+                      variant={isActive('/bookmarks') ? "default" : "ghost"} 
+                      size="sm"
+                      className="flex items-center space-x-3 w-full justify-start h-12"
+                    >
+                      <BookMarked className="h-5 w-5" />
+                      <span>Bookmarks</span>
+                    </Button>
+                  </Link>
+
+                  {/* Devotionals */}
+                  <Link to="/devotionals" onClick={() => setIsMoreMenuOpen(false)}>
+                    <Button 
+                      variant={isActive('/devotionals') ? "default" : "ghost"} 
+                      size="sm"
+                      className="flex items-center space-x-3 w-full justify-start h-12"
+                    >
+                      <Heart className="h-5 w-5" />
+                      <span>Devotionals</span>
+                    </Button>
+                  </Link>
+
+                  {/* Reading Plans */}
+                  <Link to="/reading-plans" onClick={() => setIsMoreMenuOpen(false)}>
+                    <Button 
+                      variant={isActive('/reading-plans') ? "default" : "ghost"} 
+                      size="sm"
+                      className="flex items-center space-x-3 w-full justify-start h-12"
+                    >
+                      <Calendar className="h-5 w-5" />
+                      <span>Reading Plans</span>
+                    </Button>
+                  </Link>
+
+                  {/* Community */}
+                  <Link to="/community" onClick={() => setIsMoreMenuOpen(false)}>
+                    <Button 
+                      variant={isActive('/community') ? "default" : "ghost"} 
+                      size="sm"
+                      className="flex items-center space-x-3 w-full justify-start h-12"
+                    >
+                      <Users className="h-5 w-5" />
+                      <span>Community</span>
+                    </Button>
+                  </Link>
+
+                  {/* Profile */}
+                  <Link to="/profile" onClick={() => setIsMoreMenuOpen(false)}>
+                    <Button 
+                      variant={isActive('/profile') ? "default" : "ghost"} 
+                      size="sm"
+                      className="flex items-center space-x-3 w-full justify-start h-12"
+                    >
+                      <User className="h-5 w-5" />
+                      <span>Profile</span>
+                    </Button>
+                  </Link>
+
+                  {/* Theme Toggle */}
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => {
+                      setTheme(theme === 'dark' ? 'light' : 'dark');
+                      setIsMoreMenuOpen(false);
+                    }}
+                    className="flex items-center space-x-3 w-full justify-start h-12"
+                  >
+                    {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                    <span>Switch to {theme === 'dark' ? 'Light' : 'Dark'} Theme</span>
+                  </Button>
+
+                  {/* Sign Out */}
+                  {user && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => {
+                        signOut();
+                        setIsMoreMenuOpen(false);
+                      }}
+                      className="flex items-center space-x-3 w-full justify-start text-destructive h-12"
+                    >
+                      <LogOut className="h-5 w-5" />
+                      <span>Sign Out</span>
+                    </Button>
+                  )}
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </div>
+
+          {/* Desktop: Show bookmarks normally */}
+          <div className="hidden md:block">
+            <Link to="/bookmarks">
+              <Button 
+                variant={isActive('/bookmarks') ? "default" : "ghost"} 
+                size="sm"
+                className="flex flex-col md:flex-row md:w-full md:justify-start items-center space-y-1 md:space-y-0 md:space-x-2"
+              >
+                <BookMarked className="h-4 w-4" />
+                <span className="text-xs md:text-sm">Saved</span>
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Bottom section - only visible on desktop */}

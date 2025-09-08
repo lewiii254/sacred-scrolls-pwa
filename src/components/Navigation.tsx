@@ -36,10 +36,7 @@ export function Navigation() {
   const location = useLocation();
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
 
-  // Demo mode for testing mobile UI
-  const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
-
-  if (!user && !isDemoMode) return null;
+  if (!user) return null;
 
   const isActive = (path: string) => location.pathname === path;
 

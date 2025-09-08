@@ -16,8 +16,7 @@ const Index = () => {
   const [readingStreak, setReadingStreak] = useState(0);
 
   useEffect(() => {
-    const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
-    if (!loading && !user && !isDemoMode) {
+    if (!loading && !user) {
       navigate("/auth");
     }
   }, [user, loading, navigate]);
@@ -59,10 +58,7 @@ const Index = () => {
   }
 
   if (!user) {
-    const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
-    if (!isDemoMode) {
-      return null;
-    }
+    return null;
   }
 
   // Get unique books from user data

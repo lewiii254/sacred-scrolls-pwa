@@ -10,10 +10,7 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const { user } = useAuth();
 
-  // Demo mode for testing mobile UI
-  const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
-
-  if (!user && !isDemoMode) {
+  if (!user) {
     return <>{children}</>;
   }
 

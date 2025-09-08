@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
-import { Navigation } from '@/components/Navigation';
 import { VerseComponent } from '@/components/VerseComponent';
 import { AudioPlayer } from '@/components/AudioPlayer';
 import { BibleChapter, BibleBook, BIBLE_BOOKS, fetchBibleChapter } from '@/lib/bible-api';
@@ -118,7 +117,6 @@ export default function BibleReader() {
 
   return (
     <Layout>
-      <Navigation />
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Navigation Header */}
         <Card>

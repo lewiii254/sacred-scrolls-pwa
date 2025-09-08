@@ -1,5 +1,6 @@
-const CACHE_NAME = 'sacred-scrolls-v1';
-const STATIC_CACHE_NAME = 'sacred-scrolls-static-v1';
+const CACHE_NAME = 'sacred-scrolls-v0.0.0-1757325991226';
+const STATIC_CACHE_NAME = 'sacred-scrolls-static-v0.0.0-1757325991226';
+const APP_VERSION = '0.0.0-1757325991226';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
@@ -10,11 +11,12 @@ const STATIC_ASSETS = [
   '/bookmarks',
   '/devotionals',
   '/offline.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/version.json'
 ];
 
 // Bible content cache
-const BIBLE_CACHE_NAME = 'sacred-scrolls-bible-v1';
+const BIBLE_CACHE_NAME = 'sacred-scrolls-bible-v0.0.0-1757325991226';
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
@@ -45,8 +47,9 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            // Delete old caches
-            if (cacheName !== STATIC_CACHE_NAME && 
+            // Delete old caches - keep only current versions
+            if (cacheName.startsWith('sacred-scrolls-') && 
+                cacheName !== STATIC_CACHE_NAME && 
                 cacheName !== CACHE_NAME && 
                 cacheName !== BIBLE_CACHE_NAME) {
               console.log('Sacred Scrolls Service Worker: Deleting old cache', cacheName);
@@ -56,8 +59,18 @@ self.addEventListener('activate', (event) => {
         );
       })
       .then(() => {
-        console.log('Sacred Scrolls Service Worker: Activation complete');
-        return self.clients.claim();
+        console.log('Sacred Scrolls Service Worker: Activation complete, notifying clients of update');
+        // Notify all clients about the update
+        return self.clients.claim().then(() => {
+          return self.clients.matchAll().then(clients => {
+            clients.forEach(client => {
+              client.postMessage({
+                type: 'SW_UPDATED',
+                version: APP_VERSION
+              });
+            });
+          });
+        });
       })
   );
 });
@@ -270,8 +283,13 @@ async function syncUserData() {
   }
 }
 
-// Cache Bible content for offline use
+// Handle skip waiting messages from clients
 self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+    return;
+  }
+  
   if (event.data && event.data.type === 'CACHE_BIBLE_CONTENT') {
     const { bookId, chapter, content } = event.data;
     

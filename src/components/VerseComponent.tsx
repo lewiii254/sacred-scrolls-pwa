@@ -113,18 +113,18 @@ export function VerseComponent({ verse }: VerseComponentProps) {
 
   return (
     <>
-      <div className="flex items-start space-x-4 py-2 group hover:bg-muted/30 px-2 rounded">
-        <span className="text-sm font-medium text-muted-foreground min-w-[2rem] mt-1">
+      <div className="flex items-start space-x-2 sm:space-x-4 py-3 sm:py-2 group hover:bg-muted/30 px-2 sm:px-2 rounded">
+        <span className="text-xs sm:text-sm font-medium text-muted-foreground min-w-[1.5rem] sm:min-w-[2rem] mt-0.5 flex-shrink-0">
           {verse.verse}
         </span>
-        
-        <div className="flex-1">
-          <p 
-            className="text-sm leading-relaxed cursor-pointer select-text"
-            style={{ 
+
+        <div className="flex-1 min-w-0">
+          <p
+            className="text-sm sm:text-base leading-relaxed cursor-pointer select-text text-left"
+            style={{
               backgroundColor: highlightColor || 'transparent',
-              padding: highlightColor ? '2px 4px' : '0',
-              borderRadius: highlightColor ? '3px' : '0'
+              padding: highlightColor ? '4px 6px' : '0',
+              borderRadius: highlightColor ? '4px' : '0'
             }}
           >
             {verse.text}
@@ -149,7 +149,7 @@ export function VerseComponent({ verse }: VerseComponentProps) {
           )}
         </div>
 
-        <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center space-x-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex-shrink-0">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0">

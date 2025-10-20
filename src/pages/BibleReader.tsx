@@ -276,26 +276,25 @@ export default function BibleReader() {
 
           {/* Chapter Content */}
           <Card>
-            <CardHeader className="pb-3">
+            <CardHeader className="pb-3 px-3 sm:px-6">
               <CardTitle className="text-center text-lg md:text-xl">
                 {currentBook.name} Chapter {currentChapter}
               </CardTitle>
             </CardHeader>
-            
-            <CardContent>
+
+            <CardContent className="px-2 sm:px-6">
               {loading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-8 w-8 animate-spin" />
                   <span className="ml-2">Loading chapter...</span>
                 </div>
               ) : chapterData ? (
-                <div 
-                  className="space-y-1"
+                <div
+                  className="space-y-0.5 max-w-3xl mx-auto"
                   style={{
                     fontSize: `${readingPreferences.fontSize}px`,
                     lineHeight: readingPreferences.lineHeight,
-                    fontFamily: readingPreferences.fontFamily === 'system' ? 'inherit' : readingPreferences.fontFamily,
-                    textAlign: readingPreferences.textAlign as any
+                    fontFamily: readingPreferences.fontFamily === 'system' ? 'inherit' : readingPreferences.fontFamily
                   }}
                 >
                   {chapterData.verses.map((verse) => (
@@ -317,7 +316,7 @@ export default function BibleReader() {
 
           {/* Mobile Swipe Hint */}
           <div className="md:hidden text-center text-sm text-muted-foreground">
-            💡 Swipe left/right to navigate between chapters
+            Swipe left or right to navigate between chapters
           </div>
 
           {/* Navigation Footer */}

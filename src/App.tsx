@@ -10,6 +10,7 @@ import { AudioProvider } from "./contexts/AudioContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { ServiceWorkerUpdater } from "./components/ServiceWorkerUpdater";
 import { OfflineIndicator } from "./components/OfflineIndicator";
+import { PWAInstallPrompt } from "./components/PWAInstallPrompt";
 import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
 import BibleReader from "./pages/BibleReader";
@@ -34,6 +35,7 @@ const App = () => (
               <TooltipProvider>
               <ServiceWorkerUpdater />
               <OfflineIndicator />
+              <PWAInstallPrompt />
               <Toaster />
               <Sonner />
               <BrowserRouter>

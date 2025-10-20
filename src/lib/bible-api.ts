@@ -140,7 +140,7 @@ export async function fetchBibleChapter(bookId: string, chapter: number): Promis
     // Use API.Bible to fetch real content with ASV translation
     const bibleId = 'de4e12af7f28f599-02'; // ASV Bible ID
     const chapterId = `${book.api_id}.${chapter}`;
-    
+
     const response = await fetch(
       `${BASE_URL}/bibles/${bibleId}/chapters/${chapterId}?content-type=text&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false`,
       { headers }
@@ -153,24 +153,36 @@ export async function fetchBibleChapter(bookId: string, chapter: number): Promis
 
     const data = await response.json();
     const content = data.data?.content;
-    
+
     if (!content) {
       return getFallbackContent(bookId, chapter, book);
     }
 
     // Parse the content to extract verses
     const verses = parseApiContent(content, bookId, book.name, chapter);
-    
+
     if (verses.length === 0) {
       return getFallbackContent(bookId, chapter, book);
     }
 
-    return {
+    const chapterData = {
       book_id: bookId,
       book_name: book.name,
       chapter,
       verses
     };
+
+    // Cache the Bible content in service worker for offline access
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'CACHE_BIBLE_CONTENT',
+        bookId,
+        chapter,
+        content: chapterData
+      });
+    }
+
+    return chapterData;
   } catch (error) {
     console.error('Error fetching Bible chapter:', error);
     const book = BIBLE_BOOKS.find(b => b.id === bookId);

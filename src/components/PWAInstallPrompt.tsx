@@ -175,12 +175,12 @@ export function PWAStatus() {
     <div className="fixed top-4 right-4 z-40">
       <div className={`
         px-2 py-1 rounded-full text-xs font-medium
-        ${isOnline 
-          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' 
+        ${isOnline
+          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
           : 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400'
         }
       `}>
-        {isOnline ? '🟢 Online' : '🟡 Offline'}
+        {isOnline ? 'Online' : 'Offline'}
       </div>
     </div>
   );
